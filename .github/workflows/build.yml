@@ -1,9 +1,7 @@
 name: Patch and Build
 
 on:
-  push:
-    branches: [ "**" ]
-  pull_request:
+  workflow_dispatch:
 
 jobs:
   build:
@@ -28,3 +26,11 @@ jobs:
         run: ./gradlew applyPatches
       - name: Build
         run: ./gradlew build
+      - name: Create
+        run: ./gradlew createMojmapPaperclipJar
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v3.1.2
+        with:
+          name: Paperclip
+          path: ./build/libs/folia-paperclip-*.jar
+          if-no-files-found: error
