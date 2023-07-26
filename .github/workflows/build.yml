@@ -22,6 +22,8 @@ jobs:
           java-version: '17'
       - name: Configure Git User Details
         run: git config --global user.email "actions@github.com" && git config --global user.name "Github Actions"
+      - name: Set commit
+        run: git -c commit.gpgsign=false -c core.safecrlf=false fetch --depth 1 origin daacd4255022f3a1bf74dd3e84f751be838678ac
       - name: Apply Patches
         run: ./gradlew applyPatches
       - name: Build
